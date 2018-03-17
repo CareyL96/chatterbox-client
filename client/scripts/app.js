@@ -1,20 +1,21 @@
 // YOUR CODE HERE:
-class App {
-  constructor(){
-    this.server = "http://parse.sfm8.hackreactor.com/chatterbox"
-    // this.
-    this.friends = [];
-  }
+var app = {
+  server: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
   
-  init(){
+  init: function(){
+    var data = app.fetch();
+    var userData = data.responseJSON;
     
-  }
+    userData.forEach((dataObj) => {
+      data.renderMessage(dataObj);
+    });
+  },
   
-  send(message){
+  send: function(message){
     this.post(message);
-  }
+  },
   
-  post(message){
+  post: function(message){
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
       url: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
@@ -29,46 +30,62 @@ class App {
         console.error('chatterbox: Failed to send message', data);
       }
     });
-  }
-  fetch(){
-    $.ajax({
+  },
+  
+  fetch: function(){
+    return $.ajax({
       // This is the url you should use to communicate with the parse API server.
-      url: this.server,
+      url: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
-      data: JSON.stringify(message),
+      data: {"order":"-createdAt"},
       contentType: 'application/json',
-      success: function (data) {
-        console.log('chatterbox: Message sent');
+      success: function () {
+        console.log('chatterbox: Message requested');
       },
-      error: function (data) {
+      error: function () {
         // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-        console.error('chatterbox: Failed to send message', data);
+        // console.error('chatterbox: Failed to send message', data);
       }
     });
-  }
+  },
   
-  clearMessages(){
+  clearMessages: function(){
     $('#chats').empty();
-  }
+  },
   
-  renderMessage(message) {
-    var $username = `<span class="username">${message.username}</span>`;
+  renderMessage: function(message) {
+    var $username = `<span class="${message.username}">${message.username}</span>`;
     var $message = `<span class="message">${message.text}</span>`;
     var $room = `<></>`;
-    var $chat = `<div>@${username}: ${message}</div>`
+    var $chat = `<div>@${$username}: ${$message}</div>`
     $('#chats').append($chat);
-  }
+  },
   
-  renderRoom(roomName){
-    $('#roomSelect').append(`<div class="room">${roomName}</div>`);
-  }
+  renderRoom: function(roomName){
+    $('#roomSelect').append(`<div class="${roomName}">${roomName}</div>`);
+  },
 
-  handleUsernameClick(username) {
+  handleUsernameClick: function(username) {
     $('#main').find('.username').click(function(){
       
     });
   }
-}
+};
 
-var app = new App();
+  app.init();
+// $(document).ready(function(){
+//   // var user = new App();
+//   // var data = user.fetch();
+//   // var userData = data.responseJSON.results;
+  
+//   // userData.forEach((dataObj) => {
+//   //   user.renderMessage(dataObj);
+//   // });
+// });
 
+// displaying data
+
+// fetch data
+// save data into variable
+// iterate through data variable
+// render messages from variable 
