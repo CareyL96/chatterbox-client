@@ -65,11 +65,15 @@ form input[type=text] {
     background-color: #eee;
 }
 
-.chat .username {
-    font-weight: 800;
+.chat {
+
+} 
+
+.username {
+    hover: pointer;
 }
 
-.chat:hover {
+.chat {
     background-color: #ddd;
 }
 
@@ -83,12 +87,11 @@ form input[type=text] {
     padding: 10px;
 }
 
-.friend {
-    color: #fff;
-    background-color: #0090da;
+.friend .message{
+    font-weight: 800;
 }
 
-/*.filtered{
+.filtered{
     display: none;
 }
-*/
+
